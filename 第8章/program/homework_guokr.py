@@ -6,7 +6,7 @@ import re
 
 login_url = 'https://account.guokr.com/sign_in/'
 email = 'greensouth@foxmail.com'
-password = 'iamtheone847'
+password = 'xxxxxxxxx'
 
 captcha_username = 'kingname'
 captcha_password = 'baiguanlab'
