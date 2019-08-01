@@ -6,6 +6,9 @@
 * 当当：[http://product.m.dangdang.com/25349717.html](http://product.m.dangdang.com/25349717.html)
 * 亚马逊：[https://www.amazon.cn/dp/B07HGBRXFW](https://www.amazon.cn/dp/B07HGBRXFW)
 
+## 我的公众号
+
+![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/wechatplatform.jpg)
 
 # 如果你不知道做什么，那就学一门杂学吧
 
