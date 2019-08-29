@@ -222,7 +222,7 @@ Python有一个工作区的概念，在默认情况下，当你使用`python xxx
 
 所以，不同版本的 Python 由于拥有自己的 `site-packages`文件夹，所以他们各自安装的第三方库互不干扰。
 
-你安装的某些第三方库，会生成一个可自行文件。例如当你安装了`Scrapy`以后，你会发现在CMD 里面可以执行 `scrapy` 命令。实际上，本质也是 pip 把一个 scrapy 可执行文件复制到了对应 Python 版本的文件夹里面的 scripts文件夹 （macOS 或 Linux 是 bin 文件夹）里面而已。当你执行`scrapy`命令的时候，CMD 会去环境变量里面对应的各个文件夹中寻找对应的`scrapy.exe`文件，找到了就运行。
+你安装的某些第三方库，会生成一个可执行文件。例如当你安装了`Scrapy`以后，你会发现在CMD 里面可以执行 `scrapy` 命令。实际上，本质也是 pip 把一个 scrapy 可执行文件复制到了对应 Python 版本的文件夹里面的 scripts文件夹 （macOS 或 Linux 是 bin 文件夹）里面而已。当你执行`scrapy`命令的时候，CMD 会去环境变量里面对应的各个文件夹中寻找对应的`scrapy.exe`文件，找到了就运行。
 
 所以，可能会出现这样的情况，你在 Python 3.7.2环境里面安装了 Scrapy，但是在 CMD 里面运行却提示找不到`scrapy`命令。这种情况下，可能是由于你的环境变量里面设置的是其他 Python 的路径，没有设置 Python 3.7.2的路径。
 
