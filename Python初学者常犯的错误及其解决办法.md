@@ -190,5 +190,49 @@ Python有一个工作区的概念，在默认情况下，当你使用`python xxx
 
 ![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-05-01-13-42-10.png)
 
+## 我有了 Anaconda，还能安装其他版本的 Python 吗
+
+有一些 Python 初学者，在学习网上教程的时候是以 Anaconda 入门的。此时他们电脑里面第一个 Python 环境是 Anaconda 里面的 Python。
+
+在这种情况下，还能直接从 Python 官网下载安装其他版本的 Python 吗？
+
+我们知道 Python2 与 Python3 是可以共存的。那么 Python 3.5与 Python 3.6能共存吗？Python 3.6.1与 Python 3.6.2能共存吗？
+
+一台电脑上面能安装多少个 Python？
+
+我要告诉你的是，不仅仅原来有 Anaconda 以后还能安装官网的 Python，实际上你电脑里面想安装多少个 Python 都可以。甚至你想在电脑上面安装10个 Python3.7.1也可以。
+
+你安装 Python，本质上就是在电脑上安装了一个文件夹，这个文件夹里面有一个`python.exe`和各种子文件夹。
+
+所以，你完全可以把 Python 3.7.1安装到`C:\python371`，把 Python 3.7.2安装到`C:\python372`这两个文件夹下。
+
+于是，当你使用`C:\python371\python xxx.py`的时候，就是用的 Python 3.7.1来运行这个文件，当你使用`C:\python372\python xxx.py`的时候，就是用的 Python 3.7.2来运行这个文件。
+
+那么当我们在 CMD 里面直接输入`python xxx.py`的时候，它用的是哪个 Python 呢？实际上这根本就不关 Python 的事情。这是系统的环境变量决定的。
+
+无论是哪个系统，当你执行`python xxx.py`的时候，它首先会检查`python`是不是系统命令，发现不是，于是会在当前文件夹下面找有没有一个可执行文件，名字叫做`python.exe（或者 python.bat）`，发现也没有，此时，他就会根据环境变量里面记录的文件夹，一个文件夹一个文件夹去寻找。
+
+例如环境变量是：`c:\ windows\system32;c:\program files;c:\python371;c:\python372`。那么此时，CMD 会首先去`C:\Windows\System32`文件夹下面寻找`python.exe`，发现找不到，于是又去`c:\Program Files`文件夹去找，发现也找不到，然后检查`C:\python371`文件夹，找到了，于是就使用 Python 3.7.1来运行文件。
+
+如果你想在 CMD 运行`python xxx.py`时，默认使用 Python 3.7.2来运行怎么办呢？非常简单，只需要把环境变量修改为：`c:\ windows\system32;c:\program files;c:\python372;c:\python371`即可。
+
+所以，你可以在你的电脑上安装100个相同版本或者不同版本的 Python，你想用哪个，可以直接通过绝对路径来启动，或者修改环境变量，把你想用的那个版本的 Python 设置到最前面。
+
+至于安装在 Python 里面的第三方库，也非常简单，大家打开 Python 的安装文件夹，可以发现里面有一个`site-packages`文件夹，当你使用某个版本的 Python 对应的 pip （此时你应该这样写：`c:\python371\python -m pip install xxx`） 安装了一个第三方库以后，这个第三方库就会被放在这个文件夹里面。当你 Python 运行的程序需要使用第三方库的时候，它就会到自己的`site-packages`文件夹里面去寻找。
+
+所以，不同版本的 Python 由于拥有自己的 `site-packages`文件夹，所以他们各自安装的第三方库互不干扰。
+
+你安装的某些第三方库，会生成一个可自行文件。例如当你安装了`Scrapy`以后，你会发现在CMD 里面可以执行 `scrapy` 命令。实际上，本质也是 pip 把一个 scrapy 可执行文件复制到了对应 Python 版本的文件夹里面的 scripts文件夹 （macOS 或 Linux 是 bin 文件夹）里面而已。当你执行`scrapy`命令的时候，CMD 会去环境变量里面对应的各个文件夹中寻找对应的`scrapy.exe`文件，找到了就运行。
+
+所以，可能会出现这样的情况，你在 Python 3.7.2环境里面安装了 Scrapy，但是在 CMD 里面运行却提示找不到`scrapy`命令。这种情况下，可能是由于你的环境变量里面设置的是其他 Python 的路径，没有设置 Python 3.7.2的路径。
+
+Python 的 virtualenv 本质上也是同样的原理。当你电脑里面原本只有一个 Python 的时候，你可以通过 virtualenv 创建另外一个环境，这个环境看起来就像是把系统环境的 Python `复制`了一份出来。所以当你使用虚拟环境的 Python 的时候，安装的第三方库都是安装在虚拟环境的`site-packages`文件夹里面的，就不会影响系统环境的 Python。
+
+当然，virutalenv 创建虚拟环境的时候，并不是把所有文件都真正的复制了一份。而是创建了一个`软连接`。在虚拟环境中通过这个软连接运行的本质上还是系统环境的 Python，但是由于这个虚拟环境也有 site-apckages 文件夹，所以它会使用虚拟环境的 site-packages。这就解释了为什么当你创建一个虚拟环境以后，再把系统环境的 Python 删掉，你会发现虚拟环境的 Python 也不能运行了。
+
+总之一句话，如果你想在一个电脑上安装多个 Python，这没有任何问题。唯一可能给你带来困扰的是不同 Python 都把自己的文件夹路径添加到了环境变量中，那么哪个 Python 先执行，哪个 Python 后执行，这是环境变量给你带来的困扰，而不是 Python 本身。
+
+关于 Python 初学者常见的更多错误和解决方法，大家可以关注本公众号的更新，也可以在 Github 上看到合集：
+
 ## 未完待续
 
